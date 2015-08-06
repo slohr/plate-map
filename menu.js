@@ -1,7 +1,4 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
 (function($, fabric) {
-
   plateLayOutWidget.menu = function() {
     // This object contains Menu items and how it works;
     return {
@@ -36,4 +33,4 @@ var plateLayOutWidget = plateLayOutWidget || {};
       },
     };
   }
-})(jQuery, fabric)
+})(jQuery, fabric);

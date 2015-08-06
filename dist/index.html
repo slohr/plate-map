@@ -1,0 +1,246 @@
+<html>
+  <head>
+    <link href="/css/plate-layout.css" media="all" rel="stylesheet">
+    <link href="/css/select2.css" media="all" rel="stylesheet">
+    <script src="/libs/jquery-1.11.2.min.js"></script>
+    <script src="/libs/jquery-ui.min.js"></script>
+    <script src="/libs/select2.js"></script>
+    <script src="/libs/fabric.min.js"></script>
+    <script src="plate-map.js"></script>
+  </head>
+  <body>
+    <div id="plate-layout" class="plate-setup-container-outer">
+      Loading plate layout ... !
+    </div>
+    <div id="plate-data"></div>
+    <div id="plate-tabs"></div>
+    <div id="demo" style="width: 100px;height: 100px;float: right;">
+      <button type="button" id="Load" value="load data" style="width: 80px;height: 30px;">Load Data</button>
+    </div>
+
+<script type="text/javascript">
+// Wait for all the script load from the loader.js and fire up
+window.onload = function() {
+
+  $(function() {
+    var attributes = {
+
+      presets: {
+        "preset 1": ['volume', 'pol', 'volume-master', 'volume-ampli', 'volume2'],
+        "preset 2": ['poly'],
+        "preset 3":['volume3', 'polo'],
+        "preset 4": [ 'volume-f4', 'poloo']
+      },
+
+      tabs: {
+        "tab 1": {
+          fields: {
+            Volume: {
+              required: true,
+              id:       'volume',
+              name:     'Volume',
+              type:     'numeric',
+              //units:    'volume_units', //optional
+              placeholder: "Volume",
+
+              units: {
+                1: "m/s",
+                2: "Nm"
+              }
+            },
+
+            Polymerase: {
+              required: true,
+              id: 'pol',
+              name: 'Polymerase',
+              type: 'multiselect',
+              placeHolder: "Polymerase",
+
+              options: {
+                  'Taq 1':  {
+                        id:   '234',
+                        name: 'Taq 1'
+                    },
+                  'Taq 2':  {
+                        id:   '123',
+                        name: 'Taq 2'
+                    },
+                    'Taq 3':  {
+                        id:   '3',
+                        name: 'Taq 3'
+                    },
+                    'Taq 4':  {
+                        id:   '4',
+                        name: 'Taq 4'
+                    },
+                    'Taq 5':  {
+                        id:   '5',
+                        name: 'Taq 5'
+                    }
+              }
+            },
+
+            master_mix: {
+              required: true,
+              id:       'volume-master',
+              name:     'master mix concentration factor',
+              type:     'text',
+              units:    'volume_units' //optional
+            },
+
+            Amplicons: {
+              required: true,
+              id:       'volume-ampli',
+              name:     'Amplicons',
+              type:     'boolean',
+              units:    'volume_units' //optional
+            },
+
+            Buffer: {
+              id:       'volume-buff',
+              name:     'Buffer',
+              type:     'numeric',
+
+              units: {
+                1: "m/s",
+                2: "Nm"
+              }
+            },
+
+            Volume2: {
+              id:       'volume2',
+              name:     'Volume2',
+              type:     'numeric',
+              //units:    'volume_units', //optional
+              placeholder: "Volume",
+
+              units: {
+                1: "m/s",
+                2: "Nm"
+              }
+            }
+          },
+        },
+
+        "tab 2": {
+          fields: {
+            dNTPs : {
+              id: 'poly',
+              name: 'dNTPs1',
+              type: 'multiselect',
+
+              options: {
+                  'Taq 1':  {
+                        id:   '234',
+                        name: 'Taq 1'
+                    },
+                  'Taq 2':  {
+                        id:   '123',
+                        name: 'Taq 2'
+                    }
+              }
+            }
+          }
+        },
+
+        "tab 3": {
+          fields: {
+            Volume3: {
+              id:       'volume3',
+              name:     'Volume3',
+              type:     'numeric',
+
+              units: {
+                1: "m/s",
+                2: "Nm"
+              }
+            },
+
+            Polymerase2: {
+              id: 'polo',
+              name: 'Polymerase2',
+              type: 'multiselect',
+
+              options: {
+                  'Taq 1':  {
+                        id:   '234',
+                        name: 'Taq 1'
+                    },
+                  'Taq 2':  {
+                        id:   '123',
+                        name: 'Taq 2'
+                    }
+              }
+            }
+          }
+        },
+
+        "tab 4": {
+
+          fields: {
+            Volume4: {
+              id:       'volume-f4',
+              name:     'Volume',
+              type:     'text'
+            },
+
+            dNTPs2 : {
+              id: 'poloo',
+              name: 'dNTPs2',
+              type: 'multiselect',
+
+              options: {
+                  'Taq 1':  {
+                        id:   '234',
+                        name: 'cola'
+                    },
+                  'Taq 2':  {
+                        id:   '123',
+                        name: 'pepsi'
+                    },
+                    'Taq 3':  {
+                          id:   '3',
+                          name: 'fanta'
+                      },
+                    'Taq 4':  {
+                          id:   '4',
+                          name: 'redbull'
+                      }
+              }
+            }
+          }
+        }
+      }
+    };
+
+    $("#plate-layout").plateLayOut({
+      numRows:          '8',
+      numCols:          '12',
+      imgSrc: "css",
+      attributes:       attributes,
+
+      updateWells: function(event, data) {
+        // here we have changed data, Now this can be sent to server
+        //console.log(JSON.stringify(data));
+        //console.log("_______________________________");
+      }
+    });
+
+    // Okay this could be the data user gets from the server.
+      $("#demo").click(function() {
+      // Now we trigger getPlates along with the data. the implementation of getPlates is in load-plate.js
+      $.get('example_plate_data.txt', function(data) {
+        console.log( $.parseJSON( data ) );
+        $("#plate-layout").trigger("getPlates",data);
+      });
+    })
+    // This is another way to use getPlates..
+
+    //$("#plate-layout").plateLayOut("getPlates", data);
+  });
+
+}
+</script>
+
+  </body>
+</html>

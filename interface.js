@@ -1,7 +1,4 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
 (function($, fabric) {
-
   plateLayOutWidget.interface = function() {
     // interface holds all the methods to put the interface in place
     return {

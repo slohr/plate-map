@@ -1,0 +1,18 @@
+{
+  "derivative": {
+    "0": {
+      "selectedValues": {
+      },
+      "attrs": {
+      },
+      "units": {
+      },
+      "wellData": {
+        "animal": ""
+      }
+    }
+  },
+  "checkboxes": {
+    "animal": true
+  }
+}

@@ -1,7 +1,4 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
 (function($, fabric) {
-
   plateLayOutWidget.colorManager = function() {
 
     return {
@@ -81,5 +78,4 @@ var plateLayOutWidget = plateLayOutWidget || {};
         }
     }
   }
-
 })(jQuery, fabric);

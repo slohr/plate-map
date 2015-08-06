@@ -1,0 +1,86 @@
+<html>
+  <head>
+    <link href="/css/plate-layout.css" media="all" rel="stylesheet">
+    <link href="/css/select2.css" media="all" rel="stylesheet">
+    <script src="/libs/jquery-1.11.2.min.js"></script>
+    <script src="/libs/jquery-ui.min.js"></script>
+    <script src="/libs/select2.js"></script>
+    <script src="/libs/fabric.min.js"></script>
+    <script src="plate-map.js"></script>
+  </head>
+  <body>
+    <div id="plate-layout" class="plate-setup-container-outer">
+      Loading plate layout ... !
+    </div>
+    <div id="plate-data"></div>
+    <div id="plate-tabs"></div>
+    <div id="demo" style="width: 100px;height: 100px;float: right;">
+      <button type="button" id="Load" value="load data" style="width: 80px;height: 30px;">Load Data</button>
+    </div>
+
+<script type="text/javascript">
+// Wait for all the script load from the loader.js and fire up
+window.onload = function() {
+
+  $(function() {
+    var attributes = {
+
+      presets: {
+        "preset 1": ['animal', 'filled'],
+        "preset 2": ['poly'],
+        "preset 3":['volume3', 'polo'],
+        "preset 4": [ 'volume-f4', 'poloo']
+      },
+
+      tabs: {
+        "Well Annotation": {
+          fields: {
+
+            Animal: {
+              id:       'animal',
+              name:     'Animal',
+              type:     'text'
+            },
+
+            Filled: {
+              required: true,
+              id:       'filled',
+              name:     'Filled',
+              type:     'boolean',
+            },
+          },
+        }
+      }
+    };
+
+    $("#plate-layout").plateLayOut({
+      numRows:          '8',
+      numCols:          '12',
+      imgSrc: "css",
+      attributes:       attributes,
+
+      updateWells: function(event, data) {
+        // here we have changed data, Now this can be sent to server
+        console.log(JSON.stringify(data));
+        console.log("_______________________________");
+      }
+    });
+
+    // Okay this could be the data user gets from the server.
+      $("#demo").click(function() {
+      // Now we trigger getPlates along with the data. the implementation of getPlates is in load-plate.js
+      $.get('animal_data.txt', function(data) {
+        console.log( $.parseJSON( data ) );
+        $("#plate-layout").trigger("getPlates",data);
+      });
+    })
+    // This is another way to use getPlates..
+
+    //$("#plate-layout").plateLayOut("getPlates", data);
+  });
+
+}
+</script>
+
+  </body>
+</html>

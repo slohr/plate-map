@@ -1,7 +1,3 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
-(function($, fabric) {
-
   plateLayOutWidget.createField = function() {
     // It create those fields in the tab , there is 4 types of them.
     return {

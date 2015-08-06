@@ -1,7 +1,4 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
 (function($, fabric) {
-
   plateLayOutWidget.overlay = function() {
     // overlay holds all the methods to put the part just above the canvas which contains all those
     // 'completion percentage' annd 'copy crieteria' button etc ...

@@ -1,7 +1,4 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
 (function($, fabric) {
-
   plateLayOutWidget.addDataOnChange = function() {
     // This object is invoked when something in the tab fields change
     return {
@@ -96,4 +93,4 @@ var plateLayOutWidget = plateLayOutWidget || {};
 
     };
   }
-})(jQuery, fabric)
+})(jQuery, fabric);

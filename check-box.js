@@ -1,7 +1,4 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
 (function($, fabric) {
-
   plateLayOutWidget.checkBox = function() {
     // For those check boxes associated with every field in the tab
     return {

@@ -1,7 +1,4 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
 (function($, fabric) {
-
   plateLayOutWidget.loadPlate = function(THIS) {
     // Methods which look after data changes and stack up accordingly
     // Remember THIS points to plateLayOutWidget and 'this' points to engine
@@ -25,7 +22,7 @@ var plateLayOutWidget = plateLayOutWidget || {};
           this.loadCheckboxes(derivativeData.checkboxes);
         }
 
-        if(derivativeData.selectedObjects.selectionRectangle) {
+        if(derivativeData.selectedObjects && derivativeData.selectedObjects.selectionRectangle) {
           this.createRectangle(derivativeData.selectedObjects.selectionRectangle, derivativeData.selectedObjects.click);
         }
 

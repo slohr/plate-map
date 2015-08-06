@@ -1,7 +1,4 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
 (function($, fabric) {
-
   plateLayOutWidget.tabs = function() {
     // Tabs crete and manage tabs at the right side of the canvas.
     return {
@@ -16,9 +13,16 @@ var plateLayOutWidget = plateLayOutWidget || {};
       allUnitData: {}, // Unit data saves all the units available in the tabs. now it contains id and value.
 
       _createTabAtRight: function() {
-        this.tabContainer = this._createElement("<div></div>").addClass("plate-setup-tab-container");
-        $(this.topRight).append(this.tabContainer);
-      },
+        if(!this.tabContainerId && $('#'+this.tabContainerId).length === 0) {
+          console.log('I should add a new container');
+          this.tabContainer = this._createElement("<div></div>").addClass("plate-setup-tab-container");
+          $(this.topRight).append(this.tabContainer);
+        }   
+        else {
+          console.log('Adding to specified container: ' + this.tabContainerId);
+          this.tabContainer = $('#'+this.tabContainerId).addClass("plate-setup-tab-container");
+        }   
+      },  
 
       _createTabs: function() {
         // this could be done using z-index. just imagine few cards stacked up.

@@ -1,7 +1,4 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
 (function($, fabric) {
-
   plateLayOutWidget.unitDataField = function() {
 
     return {
@@ -46,7 +43,7 @@ var plateLayOutWidget = plateLayOutWidget || {};
           return unitSelect;
         }
       },
-      
+
     };
   }
 })(jQuery, fabric);

@@ -1,7 +1,4 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
 (function($, fabric) {
-
   plateLayOutWidget.canvasCircles = function() {
     // this object contains circles
     return {
@@ -89,4 +86,4 @@ var plateLayOutWidget = plateLayOutWidget || {};
 
     };
   }
-})(jQuery, fabric)
+})(jQuery, fabric);

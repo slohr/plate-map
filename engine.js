@@ -1,7 +1,4 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
 (function($, fabric) {
-
   plateLayOutWidget.engine = function(THIS) {
     // Methods which look after data changes and stack up accordingly
     // Remember THIS points to plateLayOutWidget and 'this' points to engine

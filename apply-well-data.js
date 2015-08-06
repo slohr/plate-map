@@ -1,7 +1,4 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
 (function($, fabric) {
-
   plateLayOutWidget.applyWellData = function() {
     // This object adds all the data fields and unit data to all the tiles/wells
     return {
@@ -25,4 +22,4 @@ var plateLayOutWidget = plateLayOutWidget || {};
 
     };
   }
-})(jQuery, fabric)
+})(jQuery, fabric);

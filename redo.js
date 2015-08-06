@@ -1,7 +1,4 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
 (function($, fabric) {
-
   plateLayOutWidget.redo = function(THIS) {
 
     return {
@@ -17,5 +14,4 @@ var plateLayOutWidget = plateLayOutWidget || {};
 
     }
   };
-
 })(jQuery, fabric);

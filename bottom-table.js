@@ -1,14 +1,21 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
 (function($, fabric) {
-
   plateLayOutWidget.bottomTable = function() {
     // for bottom table
     return {
-      _bottomScreen: function() {
+     _bottomScreen: function() {
+        if(!this.dataContainerId && $('#'+this.dataContainerId).length === 0) {
+          console.log('I should create the default data container');
+          this.bottomContainer = this._createElement("<div></div>").addClass("plate-setup-bottom-container");
+          $(this.container).append(this.bottomContainer);
+        }
+        else if(this.dataContainerId && this.dataContainerId === "off") {
+          console.log('Skipping data container');
+        }
+        else {
+          console.log('Adding to specified data container: ' + this.tabContainerId);
+          this.bottomContainer = $('#'+this.dataContainerId).addClass("plate-setup-bottom-container");
+        }
 
-        this.bottomContainer = this._createElement("<div></div>").addClass("plate-setup-bottom-container");
-        $(this.container).append(this.bottomContainer);
       },
 
       addBottomTableHeadings: function() {

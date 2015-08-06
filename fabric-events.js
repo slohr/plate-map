@@ -1,7 +1,4 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
 (function($, fabric) {
-
   plateLayOutWidget.fabricEvents = function() {
     // This object contains Menu items and how it works;
     return {
@@ -46,11 +43,17 @@ var plateLayOutWidget = plateLayOutWidget || {};
         var limitX = 624;
         var limitY = 474 + xDiff;
 
-        //$(window).scroll(function(evt){
+
+        $(window).scroll(function(evt){
           // Look for a solution to this problem ... !!!
           // May be implement a way to handle offset, Look for calcOffset Source code.
-          //that.mainFabricCanvas.calcOffset();
-        //});
+          console.log('adjusting to scroll');
+          console.log(fabric.util.getElementOffset(that.mainFabricCanvas));
+          var height = $(window).height();
+          var scrollTop = $(window).scrollTop();
+          console.log('height: ' + height + ' scrollTop: ' + scrollTop);
+          that.mainFabricCanvas.calcOffset();
+        });
 
         that.mainFabricCanvas.on("mouse:down", function(evt) {
 
@@ -59,8 +62,9 @@ var plateLayOutWidget = plateLayOutWidget || {};
           that.mainFabricCanvas.remove(that.dynamicRect);
           that.mainFabricCanvas.remove(that.dynamicSingleRect);
           that.dynamicRect = false;
-          that.startX = evt.e.clientX - xDiff;
-          that.startY = evt.e.clientY - yDiff;
+          var scrollTop = $(window).scrollTop();
+          that.startX = evt.e.clientX - xDiff
+          that.startY = evt.e.clientY - yDiff + scrollTop;
         });
 
         that.mainFabricCanvas.on("mouse:move", function(evt) {
@@ -73,11 +77,12 @@ var plateLayOutWidget = plateLayOutWidget || {};
             that.mouseMove = true;
             that._createDynamicRect(evt);
           }
+          var scrollTop = $(window).scrollTop();
 
           if(that.dynamicRect && that.mouseDown && x > that.spacing && y > that.spacing) {
             // Need a change in logic according to u drag left of right / top bottom
             that.dynamicRect.setWidth(x - that.startX - xDiff);
-            that.dynamicRect.setHeight(y - that.startY - yDiff);
+            that.dynamicRect.setHeight(y + scrollTop - that.startY - yDiff);
             that.mainFabricCanvas.renderAll();
           }
 

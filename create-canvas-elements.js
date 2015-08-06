@@ -1,7 +1,4 @@
-var plateLayOutWidget = plateLayOutWidget || {};
-
 (function($, fabric) {
-
   plateLayOutWidget.createCanvasElements = function() {
     // this class manages creating all the elements within canvas
     return {
@@ -151,4 +148,3 @@ var plateLayOutWidget = plateLayOutWidget || {};
       }
     };
   }
-})(jQuery, fabric);

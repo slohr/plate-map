@@ -1,0 +1,33 @@
+{
+  "name": "plate-map",
+  "version": "1.0.0",
+  "description": "JavaScript Plate Layout is an open source tool developed collaboratively by [Chai Biotechnologies](www.chaibio.com) and [New England Biolabs](www.neb.com) for visualizing and editing the layout of scientific assay plates.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/slohr/plate-map.git"
+  },
+  "author": "Scott C. Lohr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/slohr/plate-map/issues"
+  },
+  "homepage": "https://github.com/slohr/plate-map",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-batch": "^1.0.5",
+    "gulp-concat": "^2.6.0",
+    "gulp-header": "^1.2.2",
+    "gulp-jshint": "^1.11.2",
+    "gulp-notify": "^2.2.0",
+    "gulp-put": "0.0.3",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.0.4",
+    "gulp-strip-debug": "^1.0.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-watch": "^4.3.4"
+  }
+}
