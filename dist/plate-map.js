@@ -1316,11 +1316,14 @@ var plateLayOutWidget = plateLayOutWidget || {};
           pass those tiles to all those functions already written
           consider undo redo .. It should be easy now as I have only one place to control everything
         */
-        var xDiff = 25;
+        var xDiff = 15;
+        //var xDiff = 25;
         var yDiff = 65;
         //var yDiff = 74;
-        var limitX = 624;
-        var limitY = 474 + xDiff;
+        var limitX = 1024;
+        //var limitX = 624;
+        var limitY = 768 + xDiff;
+        //var limitY = 474 + xDiff;
 
         that.mainFabricCanvas.on("mouse:down", function(evt) {
 
@@ -1329,10 +1332,10 @@ var plateLayOutWidget = plateLayOutWidget || {};
           that.mainFabricCanvas.remove(that.dynamicRect);
           that.mainFabricCanvas.remove(that.dynamicSingleRect);
           that.dynamicRect = false;
-          console.log(that.element.offset());
           var scrollTop = $(window).scrollTop();
-          var elementTop = that.element.offset().top;
-          that.startX = evt.e.clientX - xDiff
+          var elementTop = that.element.find('.plate-setup-wrapper').offset().top;
+          var elementLeft = that.element.find('.plate-setup-wrapper').offset().left;
+          that.startX = evt.e.clientX - xDiff - elementLeft;
           that.startY = evt.e.clientY - yDiff + scrollTop - elementTop;
         });
 
@@ -1347,11 +1350,12 @@ var plateLayOutWidget = plateLayOutWidget || {};
             that._createDynamicRect(evt);
           }
           var scrollTop = $(window).scrollTop();
-          var elementTop = that.element.offset().top;
+          var elementTop = that.element.find('.plate-setup-wrapper').offset().top;
+          var elementLeft = that.element.find('.plate-setup-wrapper').offset().left;
 
           if(that.dynamicRect && that.mouseDown && x > that.spacing && y > that.spacing) {
             // Need a change in logic according to u drag left of right / top bottom
-            that.dynamicRect.setWidth(x - that.startX - xDiff);
+            that.dynamicRect.setWidth(x - that.startX - xDiff - elementLeft);
             that.dynamicRect.setHeight(y + scrollTop - that.startY - yDiff - elementTop);
             that.mainFabricCanvas.renderAll();
           }
@@ -1364,7 +1368,8 @@ var plateLayOutWidget = plateLayOutWidget || {};
 
           if(! that.mouseMove) {
             // if its just a click
-            if(evt.e && evt.e.y < 480 && evt.e.x < limitX) {
+            //if(evt.e && evt.e.y < 480 && evt.e.x < limitX) {
+            if(evt.e && evt.e.y < limitY && evt.e.x < limitX) {
               that._createDynamicSingleRect(evt);
               that._decideSelectedFields(that.dynamicSingleRect, true);
               that._alignRectangle(that.dynamicSingleRect);
