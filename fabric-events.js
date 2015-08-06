@@ -82,7 +82,7 @@
 
           if(! that.mouseMove) {
             // if its just a click
-            if(evt.e.y < 480 && evt.e.x < limitX) {
+            if(evt.e && evt.e.y < 480 && evt.e.x < limitX) {
               that._createDynamicSingleRect(evt);
               that._decideSelectedFields(that.dynamicSingleRect, true);
               that._alignRectangle(that.dynamicSingleRect);
