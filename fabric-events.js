@@ -43,18 +43,6 @@
         var limitX = 624;
         var limitY = 474 + xDiff;
 
-
-        $(window).scroll(function(evt){
-          // Look for a solution to this problem ... !!!
-          // May be implement a way to handle offset, Look for calcOffset Source code.
-          console.log('adjusting to scroll');
-          console.log(fabric.util.getElementOffset(that.mainFabricCanvas));
-          var height = $(window).height();
-          var scrollTop = $(window).scrollTop();
-          console.log('height: ' + height + ' scrollTop: ' + scrollTop);
-          that.mainFabricCanvas.calcOffset();
-        });
-
         that.mainFabricCanvas.on("mouse:down", function(evt) {
 
           that.mouseDown = true;
