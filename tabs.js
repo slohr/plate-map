@@ -14,12 +14,12 @@
 
       _createTabAtRight: function() {
         if(!this.tabContainerId && $('#'+this.tabContainerId).length === 0) {
-          console.log('I should add a new container');
+          console.log('I should create a new tab container');
           this.tabContainer = this._createElement("<div></div>").addClass("plate-setup-tab-container");
           $(this.topRight).append(this.tabContainer);
         }   
         else {
-          console.log('Adding to specified container: ' + this.tabContainerId);
+          console.log('Adding to specified tab container: ' + this.tabContainerId);
           this.tabContainer = $('#'+this.tabContainerId).addClass("plate-setup-tab-container");
         }   
       },  
@@ -91,10 +91,12 @@
       },
 
       _placePresetCaption: function() {
-        // This method add place above preset.
-        this.wellAttrContainer = this._createElement("<div></div>").addClass("plate-setup-well-attr-container")
-        .html("Well Attribute Tabs");
-        $(this.tabContainer).append(this.wellAttrContainer);
+        if(this.showPresetTabs) {
+          // This method add place above preset.
+          this.wellAttrContainer = this._createElement("<div></div>").addClass("plate-setup-well-attr-container")
+          .html("Well Attribute Tabs");
+          $(this.tabContainer).append(this.wellAttrContainer);
+        }
       },
 
       _createDefaultFieldForTabs: function() {

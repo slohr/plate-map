@@ -39,7 +39,8 @@
           consider undo redo .. It should be easy now as I have only one place to control everything
         */
         var xDiff = 25;
-        var yDiff = 74;
+        var yDiff = 65;
+        //var yDiff = 74;
         var limitX = 624;
         var limitY = 474 + xDiff;
 
@@ -50,9 +51,11 @@
           that.mainFabricCanvas.remove(that.dynamicRect);
           that.mainFabricCanvas.remove(that.dynamicSingleRect);
           that.dynamicRect = false;
+          console.log(that.element.offset());
           var scrollTop = $(window).scrollTop();
+          var elementTop = that.element.offset().top;
           that.startX = evt.e.clientX - xDiff
-          that.startY = evt.e.clientY - yDiff + scrollTop;
+          that.startY = evt.e.clientY - yDiff + scrollTop - elementTop;
         });
 
         that.mainFabricCanvas.on("mouse:move", function(evt) {
@@ -66,11 +69,12 @@
             that._createDynamicRect(evt);
           }
           var scrollTop = $(window).scrollTop();
+          var elementTop = that.element.offset().top;
 
           if(that.dynamicRect && that.mouseDown && x > that.spacing && y > that.spacing) {
             // Need a change in logic according to u drag left of right / top bottom
             that.dynamicRect.setWidth(x - that.startX - xDiff);
-            that.dynamicRect.setHeight(y + scrollTop - that.startY - yDiff);
+            that.dynamicRect.setHeight(y + scrollTop - that.startY - yDiff - elementTop);
             that.mainFabricCanvas.renderAll();
           }
 

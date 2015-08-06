@@ -41,12 +41,16 @@ var plateLayOutWidget = plateLayOutWidget || {};
       }
 
       this.imgSrc = this.options.imgSrc || "assets";
-      this.tabContainerId = this.options.tabContainerId || ""; 
-      this.dataContainerId = this.options.dataContainerId || ""; 
+      this.tabContainerId = this.options.tabContainerId || "";
+      this.dataContainerId = this.options.dataContainerId || "";
+      this.updateOnUndoRedo = (typeof this.options.updateOnUndoRedo === 'undefined') ? false : this.options.updateOnUndoRedo;
+      this.showPresetTabs = (typeof this.options.showPresetTabs === 'undefined') ? true : this.options.showPresetTabs;
 
       this._createInterface();
 
       this._configureUndoRedoArray();
+
+      this.onOffCheckBox(false, 'preset 1');
 
       return this;
     },

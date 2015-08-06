@@ -26,10 +26,7 @@ window.onload = function() {
     var attributes = {
 
       presets: {
-        "preset 1": ['animal', 'filled'],
-        "preset 2": ['poly'],
-        "preset 3":['volume3', 'polo'],
-        "preset 4": [ 'volume-f4', 'poloo']
+        "preset 1": ['animal']
       },
 
       tabs: {
@@ -40,6 +37,7 @@ window.onload = function() {
               name:     'Animal',
               required: true,
               type:     'text',
+              updateOnReturn:     true,
             },
           },
         }
@@ -50,6 +48,8 @@ window.onload = function() {
       numRows:          '8',
       numCols:          '12',
       imgSrc: "css",
+      updateOnUndoRedo: true,
+      showPresetTabs:     false,
       attributes:       attributes,
 
       updateWells: function(event, data) {
@@ -61,7 +61,7 @@ window.onload = function() {
     });
 
     // Okay this could be the data user gets from the server.
-      $("#demo").click(function() {
+    $("#demo").click(function() {
       // Now we trigger getPlates along with the data. the implementation of getPlates is in load-plate.js
       $.get('animal_data.txt', function(data) {
         console.log( $.parseJSON( data ) );

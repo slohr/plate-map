@@ -10,7 +10,9 @@
       _placePresetTabs: function() {
 
         this.presetTabContainer = this._createElement("<div></div>").addClass("plate-setup-preset-container");
-        $(this.tabContainer).append(this.presetTabContainer);
+        if(this.showPresetTabs) {
+          $(this.tabContainer).append(this.presetTabContainer);
+        }
 
         var wellAttrData = {
           "Preset 1": {

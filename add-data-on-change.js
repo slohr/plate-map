@@ -13,6 +13,7 @@
             this.engine.createDerivative(this.allSelectedObjects[objectIndex]);
             //this.engine.checkForValidData(this.allSelectedObjects[objectIndex]);
           }
+          this._trigger("updateWells", null, this.createObject());
 
           this._colorMixer(true);
         }
@@ -29,7 +30,6 @@
         if(! this.undoRedoActive) {
           var data  = this.createObject();
           this.addToUndoRedo(data);
-          this._trigger("updateWells", null, data);
         }
 
         this.engine.searchAndStack().applyColors();
@@ -45,6 +45,7 @@
             unitData[e.target.id] = e.target.value;
             this.engine.createDerivative(this.allSelectedObjects[objectIndex]);
           }
+          this._trigger("updateWells", null, this.createObject());
           this._colorMixer(true);
         }
       },

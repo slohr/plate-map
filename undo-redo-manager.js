@@ -56,6 +56,11 @@
           this.actionPointer = (this.actionPointer) ? this.actionPointer - 1 : 0;
           this.undo(this.actionPointer);
         }
+        if(this.updateOnUndoRedo) {
+          //this call would only do the delta
+          //this._trigger("updateWells", null, this.undoRedoArray[pointer]);
+          this._trigger("updateWells", null, this.createObject());
+        }
       },
 
       callRedo: function() {
@@ -64,6 +69,11 @@
         if(this.actionPointer != null && this.actionPointer < this.undoRedoArray.length - 1) {
           this.actionPointer = this.actionPointer + 1;
           this.redo(this.actionPointer);
+          if(this.updateOnUndoRedo) {
+            //this call would only do the delta
+            //this._trigger("updateWells", null, this.undoRedoArray[pointer]);
+            this._trigger("updateWells", null, this.createObject());
+          }
         } else if(this.actionPointer == this.undoRedoArray.length - 1) {
           this.undoRedoActive = false;
         }

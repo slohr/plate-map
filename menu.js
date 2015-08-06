@@ -6,7 +6,6 @@
       _createMenu: function() {
 
         var menuItems = {
-          "Templates": {},
           "Redo": {},
           "Undo": {}
         };

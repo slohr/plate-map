@@ -41,12 +41,16 @@ var plateLayOutWidget = plateLayOutWidget || {};
       }
 
       this.imgSrc = this.options.imgSrc || "assets";
-      this.tabContainerId = this.options.tabContainerId || ""; 
-      this.dataContainerId = this.options.dataContainerId || ""; 
+      this.tabContainerId = this.options.tabContainerId || "";
+      this.dataContainerId = this.options.dataContainerId || "";
+      this.updateOnUndoRedo = (typeof this.options.updateOnUndoRedo === 'undefined') ? false : this.options.updateOnUndoRedo;
+      this.showPresetTabs = (typeof this.options.showPresetTabs === 'undefined') ? true : this.options.showPresetTabs;
 
       this._createInterface();
 
       this._configureUndoRedoArray();
+
+      this.onOffCheckBox(false, 'preset 1');
 
       return this;
     },
@@ -155,6 +159,7 @@ var plateLayOutWidget = plateLayOutWidget || {};
             this.engine.createDerivative(this.allSelectedObjects[objectIndex]);
             //this.engine.checkForValidData(this.allSelectedObjects[objectIndex]);
           }
+          this._trigger("updateWells", null, this.createObject());
 
           this._colorMixer(true);
         }
@@ -171,7 +176,6 @@ var plateLayOutWidget = plateLayOutWidget || {};
         if(! this.undoRedoActive) {
           var data  = this.createObject();
           this.addToUndoRedo(data);
-          this._trigger("updateWells", null, data);
         }
 
         this.engine.searchAndStack().applyColors();
@@ -187,6 +191,7 @@ var plateLayOutWidget = plateLayOutWidget || {};
             unitData[e.target.id] = e.target.value;
             this.engine.createDerivative(this.allSelectedObjects[objectIndex]);
           }
+          this._trigger("updateWells", null, this.createObject());
           this._colorMixer(true);
         }
       },
@@ -1312,7 +1317,8 @@ var plateLayOutWidget = plateLayOutWidget || {};
           consider undo redo .. It should be easy now as I have only one place to control everything
         */
         var xDiff = 25;
-        var yDiff = 74;
+        var yDiff = 65;
+        //var yDiff = 74;
         var limitX = 624;
         var limitY = 474 + xDiff;
 
@@ -1323,9 +1329,11 @@ var plateLayOutWidget = plateLayOutWidget || {};
           that.mainFabricCanvas.remove(that.dynamicRect);
           that.mainFabricCanvas.remove(that.dynamicSingleRect);
           that.dynamicRect = false;
+          console.log(that.element.offset());
           var scrollTop = $(window).scrollTop();
+          var elementTop = that.element.offset().top;
           that.startX = evt.e.clientX - xDiff
-          that.startY = evt.e.clientY - yDiff + scrollTop;
+          that.startY = evt.e.clientY - yDiff + scrollTop - elementTop;
         });
 
         that.mainFabricCanvas.on("mouse:move", function(evt) {
@@ -1339,11 +1347,12 @@ var plateLayOutWidget = plateLayOutWidget || {};
             that._createDynamicRect(evt);
           }
           var scrollTop = $(window).scrollTop();
+          var elementTop = that.element.offset().top;
 
           if(that.dynamicRect && that.mouseDown && x > that.spacing && y > that.spacing) {
             // Need a change in logic according to u drag left of right / top bottom
             that.dynamicRect.setWidth(x - that.startX - xDiff);
-            that.dynamicRect.setHeight(y + scrollTop - that.startY - yDiff);
+            that.dynamicRect.setHeight(y + scrollTop - that.startY - yDiff - elementTop);
             that.mainFabricCanvas.renderAll();
           }
 
@@ -1696,7 +1705,6 @@ var plateLayOutWidget = plateLayOutWidget || {};
       _createMenu: function() {
 
         var menuItems = {
-          "Templates": {},
           "Redo": {},
           "Undo": {}
         };
@@ -1902,7 +1910,9 @@ var plateLayOutWidget = plateLayOutWidget || {};
       _placePresetTabs: function() {
 
         this.presetTabContainer = this._createElement("<div></div>").addClass("plate-setup-preset-container");
-        $(this.tabContainer).append(this.presetTabContainer);
+        if(this.showPresetTabs) {
+          $(this.tabContainer).append(this.presetTabContainer);
+        }
 
         var wellAttrData = {
           "Preset 1": {
@@ -1990,8 +2000,8 @@ var plateLayOutWidget = plateLayOutWidget || {};
 
       redo: function(pointer) {
 
-        this.getPlates(this.undoRedoArray[pointer]);
         console.log("redo");
+        this.getPlates(this.undoRedoArray[pointer]);
         this.undoRedoActive = false;
       },
 
@@ -2015,12 +2025,12 @@ var plateLayOutWidget = plateLayOutWidget || {};
 
       _createTabAtRight: function() {
         if(!this.tabContainerId && $('#'+this.tabContainerId).length === 0) {
-          console.log('I should add a new container');
+          console.log('I should create a new tab container');
           this.tabContainer = this._createElement("<div></div>").addClass("plate-setup-tab-container");
           $(this.topRight).append(this.tabContainer);
         }   
         else {
-          console.log('Adding to specified container: ' + this.tabContainerId);
+          console.log('Adding to specified tab container: ' + this.tabContainerId);
           this.tabContainer = $('#'+this.tabContainerId).addClass("plate-setup-tab-container");
         }   
       },  
@@ -2092,10 +2102,12 @@ var plateLayOutWidget = plateLayOutWidget || {};
       },
 
       _placePresetCaption: function() {
-        // This method add place above preset.
-        this.wellAttrContainer = this._createElement("<div></div>").addClass("plate-setup-well-attr-container")
-        .html("Well Attribute Tabs");
-        $(this.tabContainer).append(this.wellAttrContainer);
+        if(this.showPresetTabs) {
+          // This method add place above preset.
+          this.wellAttrContainer = this._createElement("<div></div>").addClass("plate-setup-well-attr-container")
+          .html("Well Attribute Tabs");
+          $(this.tabContainer).append(this.wellAttrContainer);
+        }
       },
 
       _createDefaultFieldForTabs: function() {
@@ -2175,6 +2187,11 @@ var plateLayOutWidget = plateLayOutWidget || {};
           this.actionPointer = (this.actionPointer) ? this.actionPointer - 1 : 0;
           this.undo(this.actionPointer);
         }
+        if(this.updateOnUndoRedo) {
+          //this call would only do the delta
+          //this._trigger("updateWells", null, this.undoRedoArray[pointer]);
+          this._trigger("updateWells", null, this.createObject());
+        }
       },
 
       callRedo: function() {
@@ -2183,6 +2200,11 @@ var plateLayOutWidget = plateLayOutWidget || {};
         if(this.actionPointer != null && this.actionPointer < this.undoRedoArray.length - 1) {
           this.actionPointer = this.actionPointer + 1;
           this.redo(this.actionPointer);
+          if(this.updateOnUndoRedo) {
+            //this call would only do the delta
+            //this._trigger("updateWells", null, this.undoRedoArray[pointer]);
+            this._trigger("updateWells", null, this.createObject());
+          }
         } else if(this.actionPointer == this.undoRedoArray.length - 1) {
           this.undoRedoActive = false;
         }

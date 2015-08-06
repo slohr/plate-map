@@ -2,6 +2,15 @@
   "derivative": {
     "0": {
       "wellData": {
+        "animal": "2501"
+      }
+    },
+    "12": {
+      "wellData": {
+      }
+    },
+    "95": {
+      "wellData": {
         "animal": ""
       }
     }

@@ -7,8 +7,8 @@
 
       redo: function(pointer) {
 
-        this.getPlates(this.undoRedoArray[pointer]);
         console.log("redo");
+        this.getPlates(this.undoRedoArray[pointer]);
         this.undoRedoActive = false;
       },
 
