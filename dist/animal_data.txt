@@ -1,12 +1,6 @@
 {
   "derivative": {
     "0": {
-      "selectedValues": {
-      },
-      "attrs": {
-      },
-      "units": {
-      },
       "wellData": {
         "animal": ""
       }

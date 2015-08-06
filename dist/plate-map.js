@@ -478,10 +478,17 @@ var plateLayOutWidget = plateLayOutWidget || {};
             $("#" + data.id).keyup(function(evt) {
               evt.preventDefault();
               //console.log("Cool", evt);
-              if ((evt.keyCode == 90 && evt.ctrlKey) || (evt.keyCode == 89 && evt.ctrlKey)) {
-                // Leaving it blank so that other event handler takes control.
-              }else if(evt.which != 17){
-                that._addData(evt);
+              if(data.updateOnReturn) {
+                if(evt.which == 13){
+                  that._addData(evt);
+                }
+              }
+              else {
+                if ((evt.keyCode == 90 && evt.ctrlKey) || (evt.keyCode == 89 && evt.ctrlKey)) {
+                  // Leaving it blank so that other event handler takes control.
+                }else if(evt.which != 17){
+                  that._addData(evt);
+                }
               }
             });
             break;
