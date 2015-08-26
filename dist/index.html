@@ -42,6 +42,7 @@ window.onload = function() {
               type:     'numeric',
               //units:    'volume_units', //optional
               placeholder: "Volume",
+              updateOnReturn:     true,
 
               units: {
                 1: "m/s",
@@ -85,7 +86,8 @@ window.onload = function() {
               id:       'volume-master',
               name:     'master mix concentration factor',
               type:     'text',
-              units:    'volume_units' //optional
+              units:    'volume_units', //optional
+              updateOnReturn:     true,
             },
 
             Amplicons: {
@@ -218,11 +220,14 @@ window.onload = function() {
       numCols:          '12',
       imgSrc: "css",
       attributes:       attributes,
+      updateOnUndoRedo:       true,
+      updateOnClearCriteria:       true,
+      updateOnPasteCriteria:       true,
 
       updateWells: function(event, data) {
         // here we have changed data, Now this can be sent to server
-        //console.log(JSON.stringify(data));
-        //console.log("_______________________________");
+        console.log(JSON.stringify(data));
+        console.log("_______________________________");
       }
     });
 

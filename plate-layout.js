@@ -46,6 +46,9 @@ var plateLayOutWidget = plateLayOutWidget || {};
       this.updateOnUndoRedo = (typeof this.options.updateOnUndoRedo === 'undefined') ? false : this.options.updateOnUndoRedo;
       this.showPresetTabs = (typeof this.options.showPresetTabs === 'undefined') ? true : this.options.showPresetTabs;
 
+      this.updateOnClearCriteria = (typeof this.options.updateOnClearCriteria === 'undefined') ? false : this.options.updateOnClearCriteria;
+      this.updateOnPasteCriteria = (typeof this.options.updateOnPasteCriteria === 'undefined') ? false : this.options.updateOnPasteCriteria;
+
       this._createInterface();
 
       this._configureUndoRedoArray();

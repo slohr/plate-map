@@ -46,6 +46,9 @@ var plateLayOutWidget = plateLayOutWidget || {};
       this.updateOnUndoRedo = (typeof this.options.updateOnUndoRedo === 'undefined') ? false : this.options.updateOnUndoRedo;
       this.showPresetTabs = (typeof this.options.showPresetTabs === 'undefined') ? true : this.options.showPresetTabs;
 
+      this.updateOnClearCriteria = (typeof this.options.updateOnClearCriteria === 'undefined') ? false : this.options.updateOnClearCriteria;
+      this.updateOnPasteCriteria = (typeof this.options.updateOnPasteCriteria === 'undefined') ? false : this.options.updateOnPasteCriteria;
+
       this._createInterface();
 
       this._configureUndoRedoArray();
@@ -1815,6 +1818,9 @@ var plateLayOutWidget = plateLayOutWidget || {};
             this._colorMixer(true);
           }
 
+          if(this.updateOnClearCriteria) {
+            this._trigger("updateWells", null, this.createObject());
+          }
         } else {
           alert("Please select any well");
         }
@@ -1897,6 +1903,9 @@ var plateLayOutWidget = plateLayOutWidget || {};
           this._colorMixer(true);
           this.mouseMove = (this.allSelectedObjects.length > 1) ? true : false;
           this.mainFabricCanvas.fire("mouse:up");
+        }
+        if(this.updateOnPasteCriteria) {
+          this._trigger("updateWells", null, this.createObject());
         }
       }
     };
