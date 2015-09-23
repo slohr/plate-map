@@ -34,7 +34,22 @@
             // Automatic means its system generated.
           break;
 
+          case "combobox":
+            console.log("trying to update combobox:" + id);
+            console.log("to value:" + values[id]);
+            //$("#" + id).select2('val',values[id]);
+            $("#" + id).select2('data', {id: values[id], text: values[id]});
+            //$("#" + id).select2('data', {id: 1, text: 'red'});
+            $("#" + id).trigger("change", "Automatic");
+            //Automatic means its system generated.
+          break;
+
           case "text":
+            $("#" + id).val(values[id]);
+          break;
+
+          case "textarea":
+            console.log("adding to textarea")
             $("#" + id).val(values[id]);
           break;
 

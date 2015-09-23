@@ -9,18 +9,6 @@
     <script src="plate-map.js"></script>
   </head>
   <body>
-    <div>
-      asdfafasdf
-      <br>
-      asdfafasdf
-      <br>
-      asdfafasdf
-      <br>
-      asdfafasdf
-      <br>
-      asdfafasdf
-      <br>
-    </div>
     <div id="plate-layout" class="plate-setup-container-outer" style="padding-left:55;">
       Loading plate layout ... !
     </div>
@@ -51,6 +39,41 @@ window.onload = function() {
               type:     'text',
               updateOnReturn:     true,
             },
+            Comment: {
+              id:       'comment',
+              name:     'Comment',
+              required: true,
+              type:     'textarea',
+              updateOnReturn:     true,
+            },
+            BrainRegion: {
+              required: false,
+              id: 'brain_region',
+              name: 'BrainRegion',
+              type: 'combobox',
+              placeHolder: "BrainRegion",
+
+              options: [
+                  {
+                        id:   '1',
+                        text: 'Cortext'
+                  },
+                  {
+                        id:   '2',
+                        text: 'Hippocampus'
+                  },
+              ]
+            },
+            AjaxBrainRegion: {
+              required: false,
+              id: 'ajax_brain_region',
+              name: 'AjaxBrainRegion',
+              type: 'combobox',
+              placeHolder: "AjaxBrainRegion",
+              ajax_options_url: "http://localhost:8000/options/brain_regions",
+              ajax_add_new_url: "http://localhost:8000/options/brain_regions"
+            },
+
           },
         }
       }

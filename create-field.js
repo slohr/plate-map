@@ -2,6 +2,16 @@
     // It create those fields in the tab , there is 4 types of them.
     return {
 
+      _createTextAreaField: function(textAreaData) {
+
+        return this._createElement("<textarea>").addClass("plate-setup-tab-textarea").attr("id", textAreaData.id);
+      },
+
+      _createComboBoxField: function(textData) {
+
+        return this._createElement("<input>").addClass("plate-setup-tab-input").attr("id", textData.id);
+      },
+
       _createTextField: function(textData) {
 
         return this._createElement("<input>").addClass("plate-setup-tab-input").attr("id", textData.id);
